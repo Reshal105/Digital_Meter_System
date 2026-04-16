@@ -1,0 +1,111 @@
+@import "tailwindcss";
+
+:root {
+  /* Pastel Colorful Palette */
+  --background: 45 25% 95%;      /* Soft Cream */
+  --foreground: 45 10% 20%;      /* Warm Brown */
+  --card: 45 20% 90%;           /* Light Cream */
+  --card-foreground: 45 10% 20%;
+  --primary: 120 40% 50%;        /* Soft Green */
+  --primary-foreground: 45 25% 95%;
+  --secondary: 60 30% 80%;       /* Pastel Yellow */
+  --secondary-foreground: 45 10% 20%;
+  --muted: 45 15% 85%;
+  --muted-foreground: 45 5% 40%;
+  --accent: 300 30% 70%;          /* Pastel Pink */
+  --accent-foreground: 45 10% 20%;
+  --destructive: 0 50% 60%;      /* Soft Red */
+  --destructive-foreground: 45 25% 95%;
+  --border: 45 10% 80%;
+  --input: 45 15% 85%;
+  --ring: 120 40% 50%;
+  --radius: 0.5rem;
+}
+
+html {
+  background-color: hsl(var(--background));
+}
+
+body {
+  margin: 0;
+  background-color: hsl(var(--background));
+  color: hsl(var(--foreground));
+  /* Using a mono-spaced font for numbers feels more like a real "Meter System" */
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+* {
+  box-sizing: border-box;
+  border-color: hsl(var(--border));
+}
+
+@layer components {
+  .metric-card {
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+    background: linear-gradient(145deg, hsl(var(--card)), hsl(var(--background)));
+    padding: 1.25rem;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Industrial look: subtle top-glow instead of a generic hover shadow */
+  .metric-card::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, hsl(var(--primary) / 0.3), transparent);
+  }
+
+  .metric-card:hover {
+    border-color: hsl(var(--primary) / 0.4);
+    background-color: hsl(var(--card));
+  }
+
+  .metric-card {
+  border-radius: var(--radius);
+  border: 1px solid hsl(var(--border));
+  background: linear-gradient(
+    145deg,
+    hsl(var(--card)),
+    hsl(var(--background))
+  );
+  padding: 1.25rem;
+  transition: all 0.3s ease;
+}
+
+.metric-card:hover {
+  transform: translateY(-4px);
+  border-color: hsl(var(--primary));
+  box-shadow: 0 10px 30px rgba(0, 200, 255, 0.2);
+}
+  .chart-card {
+    border-radius: var(--radius);
+    border: 1px solid hsl(var(--border));
+    background-color: hsl(var(--card));
+    padding: 1.5rem;
+  }
+
+  .glass-effect {
+    background-color: hsl(var(--card) / 0.85);
+    backdrop-filter: blur(12px);
+    border: 1px solid hsl(var(--border));
+  }
+}
+
+/* Updated animations to feel more "mechanical" and fast */
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes slideRight { from { transform: translateX(-10px); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+
+@layer utilities {
+  .animate-fade-in { animation: fadeIn 0.3s ease-out; }
+  .animate-slide-right { animation: slideRight 0.4s cubic-bezier(0, 0, 0.2, 1); }
+
+  /* Removed blue - replaced with technical colors */
+  .border-voltage { border-left: 4px solid hsl(var(--accent)); }  /* Amber */
+  .border-current { border-left: 4px solid hsl(158 64% 52%); }   /* Emerald */
+  .border-power   { border-left: 4px solid hsl(0 75% 50%); }     /* Crimson */
+  .border-energy  { border-left: 4px solid hsl(260 50% 60%); }   /* Muted Purple */
+}
