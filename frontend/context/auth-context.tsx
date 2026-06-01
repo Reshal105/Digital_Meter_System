@@ -71,8 +71,8 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       email: result.user.email,
       name: result.user.name || email.split('@')[0],
       location: result.user.location || 'Unknown',
-      meterId: result.user.meterId || 'Unknown',
-      dailyLimit: 50,
+      meterId: result.user.meterId || result.user.meter_id || 'Unknown',
+      dailyLimit: result.user.daily_limit ?? 50,
     }
 
     persistUser(userData)
@@ -108,9 +108,9 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
       id: result.user.id,
       email: result.user.email,
       name: result.user.name || name,
-      meterId: result.user.meterId || meterId,
+      meterId: result.user.meterId || result.user.meter_id || meterId,
       location: result.user.location || location,
-      dailyLimit: 50,
+      dailyLimit: result.user.daily_limit ?? 50,
     }
 
     persistUser(userData)

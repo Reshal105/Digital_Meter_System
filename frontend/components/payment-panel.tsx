@@ -78,12 +78,12 @@ export function PaymentPanel({ amount, meterId }: PaymentPanelProps) {
                 razorpay_order_id: response.razorpay_order_id,
                 razorpay_payment_id: response.razorpay_payment_id,
                 razorpay_signature: response.razorpay_signature,
-                amount: result.payment.amount * 100,
               }),
             })
 
             setStatusMessage(`Payment successful — reference ${response.razorpay_payment_id}`)
             await fetchHistory()
+            setIsProcessing(false)
           } catch (verifyError) {
             setErrorMessage('Payment verification failed. Please contact support.')
           }
